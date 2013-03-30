@@ -57,13 +57,17 @@ def processPic (filename, size, rotate, caption = None) :
 		rotate = '0'
 	# Set the output size
 	sizeDim = '400x300'
+	fontSize = 18
 	if size :
 		if size.lower() == 'small' :
 			sizeDim = '400x300'
+			fontSize = 18
 		elif size.lower() == 'medium' :
 			sizeDim = '800x600'
+			fontSize = 24
 		elif size.lower() == 'large' :
 			sizeDim = '1024x768'
+			fontSize = 28
 	# Need to append the caption now if there is one
 	if caption :
 		cmds.append('-caption')
@@ -71,7 +75,7 @@ def processPic (filename, size, rotate, caption = None) :
 	# Now tack on the input file
 	cmds.append(inFile)
 	# Build the rest of the command set
-	base = ['-thumbnail', sizeDim, '-font', 'Andika-Basic-Regular', '-pointsize', '18', '-border', '2x2', '-density', '72', '-gravity', 'center', '-bordercolor', 'white', '-background', 'black', '-polaroid', str(rotate), outFile]
+	base = ['-thumbnail', sizeDim, '-font', 'Andika-Basic-Regular', '-pointsize', str(fontSize), '-border', '2x2', '-density', '72', '-gravity', 'center', '-bordercolor', 'white', '-background', 'black', '-polaroid', str(rotate), outFile]
 	for c in base :
 		cmds.append(c)
 
