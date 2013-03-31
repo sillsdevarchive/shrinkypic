@@ -47,14 +47,11 @@ def processPic (filename, size, rotate, caption = None) :
 
 	# Build file names
 	(name, ext)     = filename.split('.')
-	outFile         = os.path.join(os.getcwd(), name + '-' + size + '.png')
+	outFile         = os.path.join(os.getcwd(), name + '-' + size + '_' + str(rotate) + '.png')
 	inFile          = os.path.join(os.getcwd(), filename)
 
 	# Begin the output command set
 	cmds = ['convert']
-	# Set rotate var
-	if not rotate :
-		rotate = '0'
 	# Set the output size
 	sizeDim = '400x300'
 	fontSize = 18
@@ -121,7 +118,7 @@ parser = argparse.ArgumentParser(description=systemName)
 parser.add_argument('filename', help='The file to process (a positional argument required for all actions with this process)')
 parser.add_argument('-c', '--caption', help='A caption to add to the output files.')
 parser.add_argument('-r', '--rotate', default=0, help='Degrees to rotate the output. Default is none.')
-parser.add_argument('-s', '--size', default='small', help='Size of the output, small, medium, or large.')
+parser.add_argument('-s', '--size', default='small', choices=['small', 'medium', 'large'], help='Size of the output, small, medium, or large.')
 
 # Send the collected arguments to the handler
 userArguments(parser.parse_args())
