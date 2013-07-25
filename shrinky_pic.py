@@ -25,16 +25,15 @@
 		eog (Eye of GNOME image viewer utility)
 '''
 
-import os, sys, codecs, shutil, argparse, subprocess, csv
+import os, sys, codecs, shutil, argparse, subprocess, csv, tempfile
 
 # Set some global vars
 systemName      = 'ShrinkyPic'
-systemVersion   = '0.2.20130608'
+systemVersion   = '0.2.r004'
 
 # Give a welcome message
 print '\n\t\tWelcome to ' + systemName
 print '\n\t\tVersion ' + systemVersion + '\n'
-
 
 
 ###############################################################################
@@ -68,12 +67,16 @@ def outlinePic (inFile) :
 	that was just created.'''
 
 	(name, ext)     = inFile.split('.')
-	outFile         = os.path.join(os.getcwd(), name + '-outline' + '.png')
-	cmd = ['convert', inFile, '-bordercolor', 'black', '-border', outFile]
+	outFile = tempfile.NamedTemporaryFile().name + '.png'
+	cmd = ['convert', inFile, '-bordercolor', 'black', '-border', '2x2', outFile]
 
-	# FIXME: Still working here yet.
-
-	return outFile
+	# Run the command
+	rCode = subprocess.call(cmd)
+	# Process and report the return code
+	if rCode == 0 :
+		return outFile
+	else :
+		sys.exit('ERROR: Failed to add outline to file: ' + inFile + ' (shrinky_pic.outlinPic())')
 
 
 def processPicFile (inFile, rotate = None, size = 'small', caption = None, viewerOn = True, outFile = None) :
@@ -90,6 +93,9 @@ def processPicFile (inFile, rotate = None, size = 'small', caption = None, viewe
 			rd = '_' + str(rotate)
 		(name, ext)     = inFile.split('.')
 		outFile         = os.path.join(os.getcwd(), name + '-' + size + rd + '.png')
+
+	# Add an outline (border) to the file
+	newInFile = outlinePic(inFile)
 
 	# Begin the output command set
 	cmds = ['convert']
@@ -109,8 +115,13 @@ def processPicFile (inFile, rotate = None, size = 'small', caption = None, viewe
 		thumbnail = ['-thumbnail', '1024x768']
 		fontSize = 28
 		density = 300
+
+
+# FIXME: Working here, cmds not working
+
+
 	# Now tack on the input file
-	cmds = cmds + ['-bordercolor', 'black', '-border', '2', inFile]
+	cmds = cmds + [newInFile, '-thumbnail', '400x300']
 	# Need to append the caption now if there is one
 	if caption :
 		cmds = cmds + ['-caption', caption, '-font', 'Andika-Basic-Regular', '-pointsize', str(fontSize)]
@@ -121,11 +132,11 @@ def processPicFile (inFile, rotate = None, size = 'small', caption = None, viewe
 
 
 #    base = ['-thumbnail', sizeDim, '-font', 'Andika-Basic-Regular', '-pointsize', str(fontSize), '-border', '2x2', '-density', '72', '-gravity', 'center', '-bordercolor', 'white', '-background', 'black', '-polaroid', str(rotate), outFile]
-	base = ['-density', str(density), outFile]
+#    base = ['-density', str(density), outFile]
 
 
-	for c in base :
-		cmds.append(c)
+#    for c in base :
+#        cmds.append(c)
 
 	print cmds
 
