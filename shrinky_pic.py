@@ -68,7 +68,7 @@ def outlinePic (inFile) :
 
 	(name, ext)     = inFile.split('.')
 	outFile = tempfile.NamedTemporaryFile().name + '.png'
-	cmd = ['convert', inFile, '-bordercolor', 'black', '-border', '2x2', outFile]
+	cmd = ['convert', inFile, '-bordercolor', 'black', '-border', '1x1', outFile]
 
 	# Run the command
 	rCode = subprocess.call(cmd)
@@ -79,66 +79,52 @@ def outlinePic (inFile) :
 		sys.exit('ERROR: Failed to add outline to file: ' + inFile + ' (shrinky_pic.outlinPic())')
 
 
-def processPicFile (inFile, rotate = None, size = 'small', caption = None, viewerOn = True, outFile = None) :
+def processPicFile (inFile, rotate, size, caption) :
 	'''Prepare the arguments for an Imagemagick process and then run the process.'''
 
-	# Build file names, if an outFile is not given, create one
+	# Workaround: cannot seem to with None args that come from argparse
+	if not rotate :
+		rotate = '0'
 	if not size :
 		size = 'small'
-	inFile              = os.path.join(os.getcwd(), inFile)
-	if not outFile :
-		rd = ''
-		outFile = ''
-		if rotate :
-			rd = '_' + str(rotate)
-		(name, ext)     = inFile.split('.')
-		outFile         = os.path.join(os.getcwd(), name + '-' + size + rd + '.png')
+	if not caption :
+		caption = ''
 
-	# Add an outline (border) to the file
-	newInFile = outlinePic(inFile)
+	# Add an outline to a pic
+	inFile = outlinePic(inFile)
+
+	# Build file names
+	(name, ext)     = inFile.split('.')
+	outFile         = os.path.join(os.getcwd(), name + '-' + size + '_' + str(rotate) + '.png')
+	inFile          = os.path.join(os.getcwd(), inFile)
+
+# Work on file name problems
 
 	# Begin the output command set
 	cmds = ['convert']
 	# Set the output size
+	sizeDim = '400x300'
 	fontSize = 18
-	density = 72
-	thumbnail = []
-	if size.lower() == 'small' :
-		thumbnail = ['-thumbnail', '400x300']
-		fontSize = 18
-		density = 72
-	elif size.lower() == 'medium' :
-		thumbnail = ['-thumbnail', '800x600']
-		fontSize = 24
-		density = 150
-	elif size.lower() == 'large' :
-		thumbnail = ['-thumbnail', '1024x768']
-		fontSize = 28
-		density = 300
-
-
-# FIXME: Working here, cmds not working
-
-
-	# Now tack on the input file
-	cmds = cmds + [newInFile, '-thumbnail', '400x300']
+	if size :
+		if size.lower() == 'small' :
+			sizeDim = '400x300'
+			fontSize = 18
+		elif size.lower() == 'medium' :
+			sizeDim = '800x600'
+			fontSize = 24
+		elif size.lower() == 'large' :
+			sizeDim = '1024x768'
+			fontSize = 28
 	# Need to append the caption now if there is one
 	if caption :
-		cmds = cmds + ['-caption', caption, '-font', 'Andika-Basic-Regular', '-pointsize', str(fontSize)]
-	if rotate :
-		cmds = cmds + ['-polaroid', str(rotate)]
-
+		cmds.append('-caption')
+		cmds.append(caption)
+	# Now tack on the input file
+	cmds.append(inFile)
 	# Build the rest of the command set
-
-
 	base = ['-thumbnail', sizeDim, '-font', 'Andika-Basic-Regular', '-pointsize', str(fontSize), '-border', '2x2', '-density', '72', '-gravity', 'center', '-bordercolor', 'white', '-background', 'black', '-polaroid', str(rotate), outFile]
-#    base = ['-density', str(density), outFile]
-
-
 	for c in base :
 		cmds.append(c)
-
-	print cmds
 
 	# Run the command
 	rCode = subprocess.call(cmds)
@@ -155,8 +141,91 @@ def processPicFile (inFile, rotate = None, size = 'small', caption = None, viewe
 
 		print 'Created: ' + os.path.split(outFile)[1]
 		# View the results (os.system allows the terminal to return right away)
-		if viewerOn :
-			os.system('eog ' + outFile + ' &')
+		os.system('eog ' + outFile + ' &')
+
+
+
+
+
+
+
+
+
+#    # Build file names, if an outFile is not given, create one
+#    if not size :
+#        size = 'small'
+#    inFile              = os.path.join(os.getcwd(), inFile)
+#    if not outFile :
+#        rd = ''
+#        outFile = ''
+#        if rotate :
+#            rd = '_' + str(rotate)
+#        (name, ext)     = inFile.split('.')
+#        outFile         = os.path.join(os.getcwd(), name + '-' + size + rd + '.png')
+
+#    # Add an outline (border) to the file
+#    newInFile = outlinePic(inFile)
+
+#    # Begin the output command set
+#    cmds = ['convert']
+#    # Set the output size
+#    fontSize = 18
+#    density = 72
+#    thumbnail = []
+#    if size.lower() == 'small' :
+#        thumbnail = ['-thumbnail', '400x300']
+#        fontSize = 18
+#        density = 72
+#    elif size.lower() == 'medium' :
+#        thumbnail = ['-thumbnail', '800x600']
+#        fontSize = 24
+#        density = 150
+#    elif size.lower() == 'large' :
+#        thumbnail = ['-thumbnail', '1024x768']
+#        fontSize = 28
+#        density = 300
+
+
+## FIXME: Working here, cmds not working
+
+
+#    # Now tack on the input file
+#    cmds = cmds + [newInFile, '-thumbnail', '400x300']
+#    # Need to append the caption now if there is one
+#    if caption :
+#        cmds = cmds + ['-caption', caption, '-font', 'Andika-Basic-Regular', '-pointsize', str(fontSize)]
+#    if rotate :
+#        cmds = cmds + ['-polaroid', str(rotate)]
+
+#    # Build the rest of the command set
+
+
+#    base = ['-thumbnail', sizeDim, '-font', 'Andika-Basic-Regular', '-pointsize', str(fontSize), '-border', '2x2', '-density', '72', '-gravity', 'center', '-bordercolor', 'white', '-background', 'black', '-polaroid', str(rotate), outFile]
+##    base = ['-density', str(density), outFile]
+
+
+#    for c in base :
+#        cmds.append(c)
+
+#    print cmds
+
+#    # Run the command
+#    rCode = subprocess.call(cmds)
+#    # Process and report the return code
+#    if rCode == 0 :
+#        if size == 'small' :
+#            rc = subprocess.call(['pngnq', outFile])
+#            # Clean up - The only way I could seem to get pngnq to work in this
+#            # configuration was to let it put its special extention on the back.
+#            # Because of this, some cleanup has to be done.
+#            crushFile = outFile.replace('.png', '-nq8.png')
+#            shutil.copyfile(crushFile, outFile)
+#            os.remove(crushFile)
+
+#        print 'Created: ' + os.path.split(outFile)[1]
+#        # View the results (os.system allows the terminal to return right away)
+#        if viewerOn :
+#            os.system('eog ' + outFile + ' &')
 
 
 ################################################################################
