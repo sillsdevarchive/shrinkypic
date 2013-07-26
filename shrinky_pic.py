@@ -29,7 +29,7 @@ import os, sys, codecs, shutil, argparse, subprocess, csv, tempfile
 
 # Set some global vars
 systemName      = 'ShrinkyPic'
-systemVersion   = '0.2.r004'
+systemVersion   = '0.2.r005'
 
 # Give a welcome message
 print '\n\t\tWelcome to ' + systemName
@@ -131,12 +131,12 @@ def processPicFile (inFile, rotate = None, size = 'small', caption = None, viewe
 	# Build the rest of the command set
 
 
-#    base = ['-thumbnail', sizeDim, '-font', 'Andika-Basic-Regular', '-pointsize', str(fontSize), '-border', '2x2', '-density', '72', '-gravity', 'center', '-bordercolor', 'white', '-background', 'black', '-polaroid', str(rotate), outFile]
+	base = ['-thumbnail', sizeDim, '-font', 'Andika-Basic-Regular', '-pointsize', str(fontSize), '-border', '2x2', '-density', '72', '-gravity', 'center', '-bordercolor', 'white', '-background', 'black', '-polaroid', str(rotate), outFile]
 #    base = ['-density', str(density), outFile]
 
 
-#    for c in base :
-#        cmds.append(c)
+	for c in base :
+		cmds.append(c)
 
 	print cmds
 
