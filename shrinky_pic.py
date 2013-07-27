@@ -41,33 +41,38 @@ print '\n\t\tVersion ' + systemVersion + '\n'
 ###############################################################################
 
 
-def processCsvFile (inFile) :
+def processCsvFile (csvFile) :
 	'''Prepare arguments found in the CSV file for processing.'''
 
-	path = os.path.split(inFile)[0]
-	csvs = csv.DictReader(open(inFile), dialect=csv.excel)
+	csvs = csv.DictReader(open(csvFile), dialect=csv.excel)
 	records = list((row.pop('filename'),row) for row in csvs)
 
 	for f in records :
 		params = f[1]
-		imgFile = os.path.join(path, f[0])
-		# Make sure we pass something for rotate
+		imgFile = f[0]
+		# Make sure we pass something for options
+		outline = 'false'
 		rotate = '0'
 		size = 'small'
+		subdir = ''
+		if params['outline'] :
+			outline = params['outline']
 		if params['rotate'] :
 			rotate = params['rotate']
 		if params['size'] :
 			size = params['size']
+		if params['subdir'] :
+			subdir = params['subdir']
 		# Call the process for this record
-		processPicFile(imgFile, rotate, size, params['caption'], False)
+		processPicFile(imgFile, rotate, size, params['caption'], outline, subdir, False)
 
 
 def outlinePic (inFile) :
 	'''Add a simple outline to a picture. Return the name of the file
 	that was just created.'''
 
-	(name, ext)     = inFile.split('.')
-	outFile = tempfile.NamedTemporaryFile().name + '.png'
+	(name, ext)     = os.path.splitext(inFile)
+	outFile         = name + '-border.png'
 	cmd = ['convert', inFile, '-bordercolor', 'black', '-border', '1x1', outFile]
 
 	# Run the command
@@ -79,7 +84,19 @@ def outlinePic (inFile) :
 		sys.exit('ERROR: Failed to add outline to file: ' + inFile + ' (shrinky_pic.outlinPic())')
 
 
-def processPicFile (inFile, rotate, size, caption) :
+def crushPic (inFile) :
+	'''Use the pngnq utility to take out the fluff from a PNG file.'''
+
+	rc = subprocess.call(['pngnq', inFile])
+	# Clean up - The only way I could seem to get pngnq to work in this
+	# configuration was to let it put its special extention on the back.
+	# Because of this, some cleanup has to be done.
+	crushFile = inFile.replace('.png', '-nq8.png')
+	shutil.copyfile(crushFile, inFile)
+	os.remove(crushFile)
+
+
+def processPicFile (inFile, rotate, size, caption, outline, subdir, viewer) :
 	'''Prepare the arguments for an Imagemagick process and then run the process.'''
 
 	# Workaround: cannot seem to with None args that come from argparse
@@ -89,16 +106,29 @@ def processPicFile (inFile, rotate, size, caption) :
 		size = 'small'
 	if not caption :
 		caption = ''
-
-	# Add an outline to a pic
-	inFile = outlinePic(inFile)
+	if not outline :
+		outline = 'False'
+	if not subdir :
+		subdir = ''
 
 	# Build file names
-	(name, ext)     = inFile.split('.')
-	outFile         = os.path.join(os.getcwd(), name + '-' + size + '_' + str(rotate) + '.png')
-	inFile          = os.path.join(os.getcwd(), inFile)
+	dirPath         = os.getcwd()
+	(name, ext)     = os.path.splitext(inFile)
+	inFile          = os.path.join(dirPath, inFile)
+	if subdir :
+		outFile     = os.path.join(dirPath, subdir, name + '-' + size + '_' + str(rotate) + '.png')
+		if not os.path.exists(os.path.join(dirPath, subdir)) :
+			os.mkdir(os.path.join(dirPath, subdir))
+	else :
+		outFile     = os.path.join(dirPath, name + '-' + size + '_' + str(rotate) + '.png')
 
-# Work on file name problems
+	workFile        = tempfile.NamedTemporaryFile().name + '.png'
+	shutil.copyfile(inFile, workFile)
+
+	# Add an outline to a pic
+	# FIXME: May need to turn this into an option at some point
+	if outline.lower() == 'true' :
+		workFile        = outlinePic(workFile)
 
 	# Begin the output command set
 	cmds = ['convert']
@@ -120,9 +150,12 @@ def processPicFile (inFile, rotate, size, caption) :
 		cmds.append('-caption')
 		cmds.append(caption)
 	# Now tack on the input file
-	cmds.append(inFile)
+	cmds.append(workFile)
 	# Build the rest of the command set
-	base = ['-thumbnail', sizeDim, '-font', 'Andika-Basic-Regular', '-pointsize', str(fontSize), '-border', '2x2', '-density', '72', '-gravity', 'center', '-bordercolor', 'white', '-background', 'black', '-polaroid', str(rotate), outFile]
+	base = ['-thumbnail', sizeDim, '-font', 'Andika-Basic-Regular', \
+		'-pointsize', str(fontSize), '-border', '2x2', '-density', '72', \
+			'-gravity', 'center', '-bordercolor', 'white', '-background', 'black', \
+				'-polaroid', str(rotate), outFile]
 	for c in base :
 		cmds.append(c)
 
@@ -131,101 +164,12 @@ def processPicFile (inFile, rotate, size, caption) :
 	# Process and report the return code
 	if rCode == 0 :
 		if size == 'small' :
-			rc = subprocess.call(['pngnq', outFile])
-			# Clean up - The only way I could seem to get pngnq to work in this
-			# configuration was to let it put its special extention on the back.
-			# Because of this, some cleanup has to be done.
-			crushFile = outFile.replace('.png', '-nq8.png')
-			shutil.copyfile(crushFile, outFile)
-			os.remove(crushFile)
+			crushPic(outFile)
 
 		print 'Created: ' + os.path.split(outFile)[1]
 		# View the results (os.system allows the terminal to return right away)
-		os.system('eog ' + outFile + ' &')
-
-
-
-
-
-
-
-
-
-#    # Build file names, if an outFile is not given, create one
-#    if not size :
-#        size = 'small'
-#    inFile              = os.path.join(os.getcwd(), inFile)
-#    if not outFile :
-#        rd = ''
-#        outFile = ''
-#        if rotate :
-#            rd = '_' + str(rotate)
-#        (name, ext)     = inFile.split('.')
-#        outFile         = os.path.join(os.getcwd(), name + '-' + size + rd + '.png')
-
-#    # Add an outline (border) to the file
-#    newInFile = outlinePic(inFile)
-
-#    # Begin the output command set
-#    cmds = ['convert']
-#    # Set the output size
-#    fontSize = 18
-#    density = 72
-#    thumbnail = []
-#    if size.lower() == 'small' :
-#        thumbnail = ['-thumbnail', '400x300']
-#        fontSize = 18
-#        density = 72
-#    elif size.lower() == 'medium' :
-#        thumbnail = ['-thumbnail', '800x600']
-#        fontSize = 24
-#        density = 150
-#    elif size.lower() == 'large' :
-#        thumbnail = ['-thumbnail', '1024x768']
-#        fontSize = 28
-#        density = 300
-
-
-## FIXME: Working here, cmds not working
-
-
-#    # Now tack on the input file
-#    cmds = cmds + [newInFile, '-thumbnail', '400x300']
-#    # Need to append the caption now if there is one
-#    if caption :
-#        cmds = cmds + ['-caption', caption, '-font', 'Andika-Basic-Regular', '-pointsize', str(fontSize)]
-#    if rotate :
-#        cmds = cmds + ['-polaroid', str(rotate)]
-
-#    # Build the rest of the command set
-
-
-#    base = ['-thumbnail', sizeDim, '-font', 'Andika-Basic-Regular', '-pointsize', str(fontSize), '-border', '2x2', '-density', '72', '-gravity', 'center', '-bordercolor', 'white', '-background', 'black', '-polaroid', str(rotate), outFile]
-##    base = ['-density', str(density), outFile]
-
-
-#    for c in base :
-#        cmds.append(c)
-
-#    print cmds
-
-#    # Run the command
-#    rCode = subprocess.call(cmds)
-#    # Process and report the return code
-#    if rCode == 0 :
-#        if size == 'small' :
-#            rc = subprocess.call(['pngnq', outFile])
-#            # Clean up - The only way I could seem to get pngnq to work in this
-#            # configuration was to let it put its special extention on the back.
-#            # Because of this, some cleanup has to be done.
-#            crushFile = outFile.replace('.png', '-nq8.png')
-#            shutil.copyfile(crushFile, outFile)
-#            os.remove(crushFile)
-
-#        print 'Created: ' + os.path.split(outFile)[1]
-#        # View the results (os.system allows the terminal to return right away)
-#        if viewerOn :
-#            os.system('eog ' + outFile + ' &')
+		if viewer :
+			os.system('eog ' + outFile + ' &')
 
 
 ################################################################################
@@ -261,7 +205,7 @@ def userArguments (args) :
 	if isCsv(args.filename) :
 		processCsvFile(os.path.realpath(os.path.expanduser(args.filename)))
 	elif isImage(args.filename) :
-		processPicFile(args.filename, args.size, args.rotate, args.caption)
+		processPicFile(args.filename, args.rotate, args.size, args.caption, args.outline, args.subdir, True)
 	else :
 		sys.exit('ERROR: File name [' + args.filename + '] could not be processed.')
 
@@ -279,6 +223,8 @@ parser.add_argument('filename', help='The file to process (a positional argument
 parser.add_argument('-c', '--caption', help='A caption to add to the output files.')
 parser.add_argument('-r', '--rotate', help='Degrees to rotate the output. Default is none.')
 parser.add_argument('-s', '--size', choices=['small', 'medium', 'large'], help='Size of the output, small, medium, or large.')
+parser.add_argument('-o', '--outline', choices=['True', 'true', 'False', 'false'], help='Add a thin outline around the base picture.')
+parser.add_argument('-d', '--subdir', help='Create a sub folder in the current folder to output the new files.')
 
 # Send the collected arguments to the handler
 userArguments(parser.parse_args())
