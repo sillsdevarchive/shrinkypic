@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+	<x>0</x>
+	<y>0</y>
+	<width>332</width>
+	<height>276</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>ShrinkyPic</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="8" column="0">
+	<widget class="QLineEdit" name="CaptionEdit">
+	 <property name="toolTip">
+	  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enter a caption for this picture.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+	 </property>
+	</widget>
+   </item>
+   <item row="0" column="0">
+	<widget class="QLabel" name="FileNameLabel">
+	 <property name="text">
+	  <string>File Name</string>
+	 </property>
+	</widget>
+   </item>
+   <item row="5" column="0">
+	<widget class="QSpinBox" name="RotationBox">
+	 <property name="minimum">
+	  <number>-20</number>
+	 </property>
+	 <property name="maximum">
+	  <number>20</number>
+	 </property>
+	</widget>
+   </item>
+   <item row="3" column="0">
+	<widget class="QComboBox" name="SizeBox">
+	 <item>
+	  <property name="text">
+	   <string>Small</string>
+	  </property>
+	 </item>
+	 <item>
+	  <property name="text">
+	   <string>Medium</string>
+	  </property>
+	 </item>
+	 <item>
+	  <property name="text">
+	   <string>Large</string>
+	  </property>
+	 </item>
+	</widget>
+   </item>
+   <item row="4" column="0">
+	<widget class="QLabel" name="PictureRotationLabel">
+	 <property name="text">
+	  <string>Picture Rotation</string>
+	 </property>
+	</widget>
+   </item>
+   <item row="6" column="0">
+	<widget class="QSlider" name="RotationSlider">
+	 <property name="minimum">
+	  <number>-20</number>
+	 </property>
+	 <property name="maximum">
+	  <number>20</number>
+	 </property>
+	 <property name="singleStep">
+	  <number>0</number>
+	 </property>
+	 <property name="value">
+	  <number>0</number>
+	 </property>
+	 <property name="sliderPosition">
+	  <number>0</number>
+	 </property>
+	 <property name="orientation">
+	  <enum>Qt::Horizontal</enum>
+	 </property>
+	 <property name="tickPosition">
+	  <enum>QSlider::TicksAbove</enum>
+	 </property>
+	</widget>
+   </item>
+   <item row="1" column="0">
+	<widget class="QLineEdit" name="FileNameEdit"/>
+   </item>
+   <item row="2" column="0">
+	<widget class="QLabel" name="PictureSizeLabel">
+	 <property name="text">
+	  <string>Picture Size</string>
+	 </property>
+	</widget>
+   </item>
+   <item row="7" column="0" alignment="Qt::AlignLeft">
+	<widget class="QLabel" name="CaptionLabel">
+	 <property name="toolTip">
+	  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enter a caption for this picture.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+	 </property>
+	 <property name="text">
+	  <string>Caption</string>
+	 </property>
+	</widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>RotationBox</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>RotationSlider</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+	<hint type="sourcelabel">
+	 <x>165</x>
+	 <y>161</y>
+	</hint>
+	<hint type="destinationlabel">
+	 <x>165</x>
+	 <y>248</y>
+	</hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>RotationSlider</sender>
+   <signal>sliderMoved(int)</signal>
+   <receiver>RotationBox</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+	<hint type="sourcelabel">
+	 <x>165</x>
+	 <y>248</y>
+	</hint>
+	<hint type="destinationlabel">
+	 <x>165</x>
+	 <y>161</y>
+	</hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>
