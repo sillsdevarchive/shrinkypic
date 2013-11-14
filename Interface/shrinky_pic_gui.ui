@@ -6,21 +6,14 @@
    <rect>
 	<x>0</x>
 	<y>0</y>
-	<width>332</width>
-	<height>276</height>
+	<width>267</width>
+	<height>344</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>ShrinkyPic</string>
   </property>
-  <layout class="QGridLayout" name="gridLayout">
-   <item row="8" column="0">
-	<widget class="QLineEdit" name="CaptionEdit">
-	 <property name="toolTip">
-	  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enter a caption for this picture.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-	 </property>
-	</widget>
-   </item>
+  <layout class="QFormLayout" name="formLayout">
    <item row="0" column="0">
 	<widget class="QLabel" name="FileNameLabel">
 	 <property name="text">
@@ -28,13 +21,10 @@
 	 </property>
 	</widget>
    </item>
-   <item row="5" column="0">
-	<widget class="QSpinBox" name="RotationBox">
-	 <property name="minimum">
-	  <number>-20</number>
-	 </property>
-	 <property name="maximum">
-	  <number>20</number>
+   <item row="2" column="0">
+	<widget class="QLabel" name="PictureSizeLabel">
+	 <property name="text">
+	  <string>Picture Size</string>
 	 </property>
 	</widget>
    </item>
@@ -64,7 +54,37 @@
 	 </property>
 	</widget>
    </item>
-   <item row="6" column="0">
+   <item row="7" column="0">
+	<widget class="QLabel" name="CaptionLabel">
+	 <property name="toolTip">
+	  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enter a caption for this picture.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+	 </property>
+	 <property name="text">
+	  <string>Caption</string>
+	 </property>
+	</widget>
+   </item>
+   <item row="9" column="0" colspan="2">
+	<widget class="QLineEdit" name="CaptionEdit">
+	 <property name="toolTip">
+	  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enter a caption for this picture.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+	 </property>
+	</widget>
+   </item>
+   <item row="1" column="0" colspan="2">
+	<widget class="QLineEdit" name="FileNameEdit"/>
+   </item>
+   <item row="5" column="0">
+	<widget class="QSpinBox" name="RotationBox">
+	 <property name="minimum">
+	  <number>-20</number>
+	 </property>
+	 <property name="maximum">
+	  <number>20</number>
+	 </property>
+	</widget>
+   </item>
+   <item row="5" column="1">
 	<widget class="QSlider" name="RotationSlider">
 	 <property name="minimum">
 	  <number>-20</number>
@@ -82,30 +102,17 @@
 	  <number>0</number>
 	 </property>
 	 <property name="orientation">
-	  <enum>Qt::Horizontal</enum>
+	  <enum>Qt::Vertical</enum>
 	 </property>
 	 <property name="tickPosition">
 	  <enum>QSlider::TicksAbove</enum>
 	 </property>
 	</widget>
    </item>
-   <item row="1" column="0">
-	<widget class="QLineEdit" name="FileNameEdit"/>
-   </item>
-   <item row="2" column="0">
-	<widget class="QLabel" name="PictureSizeLabel">
+   <item row="10" column="0" colspan="2">
+	<widget class="QPushButton" name="pushButton">
 	 <property name="text">
-	  <string>Picture Size</string>
-	 </property>
-	</widget>
-   </item>
-   <item row="7" column="0" alignment="Qt::AlignLeft">
-	<widget class="QLabel" name="CaptionLabel">
-	 <property name="toolTip">
-	  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enter a caption for this picture.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-	 </property>
-	 <property name="text">
-	  <string>Caption</string>
+	  <string>PushButton</string>
 	 </property>
 	</widget>
    </item>
@@ -120,12 +127,12 @@
    <slot>setValue(int)</slot>
    <hints>
 	<hint type="sourcelabel">
-	 <x>165</x>
-	 <y>161</y>
+	 <x>68</x>
+	 <y>170</y>
 	</hint>
 	<hint type="destinationlabel">
-	 <x>165</x>
-	 <y>248</y>
+	 <x>159</x>
+	 <y>233</y>
 	</hint>
    </hints>
   </connection>
@@ -136,14 +143,49 @@
    <slot>setValue(int)</slot>
    <hints>
 	<hint type="sourcelabel">
-	 <x>165</x>
-	 <y>248</y>
+	 <x>159</x>
+	 <y>233</y>
 	</hint>
 	<hint type="destinationlabel">
-	 <x>165</x>
-	 <y>161</y>
+	 <x>68</x>
+	 <y>170</y>
+	</hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton</sender>
+   <signal>pressed()</signal>
+   <receiver>Form</receiver>
+   <slot>setupUi()</slot>
+   <hints>
+	<hint type="sourcelabel">
+	 <x>188</x>
+	 <y>322</y>
+	</hint>
+	<hint type="destinationlabel">
+	 <x>256</x>
+	 <y>252</y>
+	</hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>CaptionEdit</sender>
+   <signal>textChanged(QString)</signal>
+   <receiver>Form</receiver>
+   <slot>setupUi()</slot>
+   <hints>
+	<hint type="sourcelabel">
+	 <x>43</x>
+	 <y>285</y>
+	</hint>
+	<hint type="destinationlabel">
+	 <x>19</x>
+	 <y>212</y>
 	</hint>
    </hints>
   </connection>
  </connections>
+ <slots>
+  <slot>setupUi()</slot>
+ </slots>
 </ui>
