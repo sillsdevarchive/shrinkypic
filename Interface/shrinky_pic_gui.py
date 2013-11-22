@@ -81,7 +81,7 @@ class Ui_Form(object):
 		self.CaptionLabel.setToolTip(QtGui.QApplication.translate("Form", "<html><head/><body><p>Enter a caption for this picture.</p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
 		self.CaptionLabel.setText(QtGui.QApplication.translate("Form", "Caption", None, QtGui.QApplication.UnicodeUTF8))
 		self.CaptionEdit.setToolTip(QtGui.QApplication.translate("Form", "<html><head/><body><p>Enter a caption for this picture.</p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
-		self.pushButton.setText(QtGui.QApplication.translate("Form", "PushButton", None, QtGui.QApplication.UnicodeUTF8))
+		self.pushButton.setText(QtGui.QApplication.translate("Form", "OK", None, QtGui.QApplication.UnicodeUTF8))
 
 
 class Form(QtGui.QWidget, Ui_Form):
@@ -89,3 +89,4 @@ class Form(QtGui.QWidget, Ui_Form):
 		QtGui.QWidget.__init__(self, parent, f)
 
 		self.setupUi(self)
+
