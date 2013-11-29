@@ -2,15 +2,21 @@
 # -*- coding: utf-8 -*-
 
 from PyQt4 import QtGui, QtCore
-from shrinky_pic_gui import Form
+from PyQt4.QtCore import *
+from PyQt4.QtGui import *
 
-class ShrinkyPicForm (Form) :
+import shrinky_pic_gui
 
-	def __init__ (self) :
+class ShrinkyPicForm (QDialog, shrinky_pic_gui.Ui_Form) :
 
-		self.sp = ShrinkyPic()
+	def __init__(self, parent=None) :
 
-		Form.__init__ (self)
+# This works:
+#        super(ShrinkyPicForm, self).__init__(parent)
+# or this works:
+		QtGui.QDialog.__init__(self)
+		self.setupUi(self)
+
 		self.pushButton.clicked.connect(self.okClicked)
 
 	def okClicked (self) :
@@ -20,7 +26,8 @@ class ShrinkyPicForm (Form) :
 		caption     = 'World'
 		size        = '!'
 		rotation    = '0'
-		self.sp.test(fileName, caption, size, rotation)
+
+		QMessageBox.information(self, "Hello", "Hi there " + caption)
 
 
 class ShrinkyPic (object) :
