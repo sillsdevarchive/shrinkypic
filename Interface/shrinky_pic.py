@@ -1,49 +1,61 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-from PyQt4 import QtGui, QtCore
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
-
+from PySide import QtGui
+from PySide.QtGui import QDialog, QMessageBox, QApplication
+import sys
 import shrinky_pic_gui
 
 class ShrinkyPicForm (QDialog, shrinky_pic_gui.Ui_Form) :
 
-	def __init__(self, parent=None) :
+	def __init__ (self, parent=None) :
+		'''Initialize and start up the UI'''
 
-# This works:
-#        super(ShrinkyPicForm, self).__init__(parent)
-# or this works:
-		QtGui.QDialog.__init__(self)
+		super(ShrinkyPicForm, self).__init__(parent)
 		self.setupUi(self)
+		self.connectionActions()
 
-		self.pushButton.clicked.connect(self.okClicked)
+	def main (self) :
+		'''This function shows the main dialog'''
+
+		self.show()
+
+	def connectionActions (self) :
+		'''Connect to form buttons.'''
+
+		self.OkButton.clicked.connect(self.okClicked)
+		self.GetPictureButton.clicked.connect(self.getPictureFile)
 
 	def okClicked (self) :
+		'''Execute the OK button.'''
 
-# Question: How do I collect data like the following from the form?
-		fileName    = 'Hello'
-		caption     = 'World'
-		size        = '!'
-		rotation    = '0'
+		fileName    = self.FileNameEdit.text()
+		caption     = self.CaptionEdit.text()
+		size        = self.SizeSelect.currentText()
+		rotation    = self.RotationBox.text()
 
-		QMessageBox.information(self, "Hello", "Hi there " + caption)
+		# Call the main class to do the work with the data we collected
+		# FIXME: This is just a temporary call
+		QMessageBox.information(self, "Data", 'File: ' + fileName + '\nCaption: ' + caption + '\nRotation: ' + rotation + '\nSize: ' + size)
 
+	def getPictureFile (self) :
+		'''Call a basic find file widget to get the file we want to process.'''
 
-class ShrinkyPic (object) :
+		fileName = None
+		dialog = QtGui.QFileDialog(self, "Find a Picture")
+		dialog.setViewMode(QtGui.QFileDialog.Detail)
+		dialog.setAcceptMode(QtGui.QFileDialog.AcceptOpen)
+		dialog.setFileMode(QtGui.QFileDialog.ExistingFile)
+		if dialog.exec_():
+			fileName = dialog.selectedFiles()[0]
 
-	def test (self, fileName, caption, size, rotation) :
-		print fileName, caption, size, rotation
+		# When the file is found, change the FileNameEdit text
+		self.FileNameEdit.setText(fileName)
 
-
-# Question: Why do I get this error when I click on the OK button:
-#   TypeError: setupUi() takes exactly 2 arguments (1 given)
-
-
+# Script starts running from here
 if __name__ == '__main__' :
 
-	import sys
-	app = QtGui.QApplication(sys.argv)
+	app = QApplication(sys.argv)
 	window = ShrinkyPicForm()
-	window.show()
+	window.main()
 	sys.exit(app.exec_())
