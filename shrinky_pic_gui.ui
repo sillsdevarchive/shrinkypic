@@ -6,8 +6,8 @@
    <rect>
 	<x>0</x>
 	<y>0</y>
-	<width>358</width>
-	<height>336</height>
+	<width>237</width>
+	<height>309</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,15 +16,14 @@
   <layout class="QHBoxLayout" name="horizontalLayout">
    <item>
 	<layout class="QGridLayout" name="gridLayout">
-	 <item row="8" column="1" colspan="2">
-	  <widget class="QPushButton" name="CancelButton">
-	   <property name="text">
-		<string>Cancel</string>
-	   </property>
-	  </widget>
-	 </item>
-	 <item row="1" column="2">
+	 <item row="2" column="2">
 	  <widget class="QPushButton" name="GetPictureButton">
+	   <property name="toolTip">
+		<string>Browse for a picture to shrink</string>
+	   </property>
+	   <property name="whatsThis">
+		<string>Opens the file browser</string>
+	   </property>
 	   <property name="text">
 		<string>Get Picture</string>
 	   </property>
@@ -37,10 +36,17 @@
 	   </property>
 	  </widget>
 	 </item>
-	 <item row="8" column="0">
+	 <item row="9" column="0">
 	  <widget class="QPushButton" name="OkButton">
 	   <property name="text">
 		<string>OK</string>
+	   </property>
+	  </widget>
+	 </item>
+	 <item row="9" column="1" colspan="2">
+	  <widget class="QPushButton" name="CancelButton">
+	   <property name="text">
+		<string>Cancel</string>
 	   </property>
 	  </widget>
 	 </item>
@@ -51,7 +57,7 @@
 	   </property>
 	  </widget>
 	 </item>
-	 <item row="7" column="0" colspan="3">
+	 <item row="8" column="0" colspan="3">
 	  <widget class="QLineEdit" name="CaptionEdit">
 	   <property name="toolTip">
 		<string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enter a caption for this picture.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -77,7 +83,7 @@
 	   </item>
 	  </widget>
 	 </item>
-	 <item row="6" column="0">
+	 <item row="7" column="0">
 	  <widget class="QLabel" name="CaptionLabel">
 	   <property name="toolTip">
 		<string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enter a caption for this picture.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -86,9 +92,6 @@
 		<string>Caption</string>
 	   </property>
 	  </widget>
-	 </item>
-	 <item row="1" column="0" colspan="2">
-	  <widget class="QLineEdit" name="FileNameEdit"/>
 	 </item>
 	 <item row="2" column="0">
 	  <widget class="QLabel" name="PictureSizeLabel">
@@ -107,28 +110,20 @@
 	   </property>
 	  </widget>
 	 </item>
-	 <item row="5" column="1" colspan="2">
-	  <widget class="QSlider" name="RotationSlider">
-	   <property name="minimum">
-		<number>-15</number>
+	 <item row="1" column="0" colspan="3">
+	  <widget class="QLineEdit" name="FileNameEdit"/>
+	 </item>
+	 <item row="6" column="0">
+	  <widget class="QCheckBox" name="ViewCheckBox">
+	   <property name="text">
+		<string>View</string>
 	   </property>
-	   <property name="maximum">
-		<number>15</number>
-	   </property>
-	   <property name="singleStep">
-		<number>0</number>
-	   </property>
-	   <property name="value">
-		<number>0</number>
-	   </property>
-	   <property name="sliderPosition">
-		<number>0</number>
-	   </property>
-	   <property name="orientation">
-		<enum>Qt::Horizontal</enum>
-	   </property>
-	   <property name="tickPosition">
-		<enum>QSlider::TicksAbove</enum>
+	  </widget>
+	 </item>
+	 <item row="6" column="2">
+	  <widget class="QCheckBox" name="OutlineCheckBox">
+	   <property name="text">
+		<string>Outline</string>
 	   </property>
 	  </widget>
 	 </item>
@@ -138,38 +133,6 @@
  </widget>
  <resources/>
  <connections>
-  <connection>
-   <sender>RotationBox</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>RotationSlider</receiver>
-   <slot>setValue(int)</slot>
-   <hints>
-	<hint type="sourcelabel">
-	 <x>68</x>
-	 <y>170</y>
-	</hint>
-	<hint type="destinationlabel">
-	 <x>159</x>
-	 <y>227</y>
-	</hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>RotationSlider</sender>
-   <signal>sliderMoved(int)</signal>
-   <receiver>RotationBox</receiver>
-   <slot>setValue(int)</slot>
-   <hints>
-	<hint type="sourcelabel">
-	 <x>159</x>
-	 <y>227</y>
-	</hint>
-	<hint type="destinationlabel">
-	 <x>68</x>
-	 <y>170</y>
-	</hint>
-   </hints>
-  </connection>
   <connection>
    <sender>OkButton</sender>
    <signal>pressed()</signal>
@@ -209,8 +172,8 @@
    <slot>setupUi()</slot>
    <hints>
 	<hint type="sourcelabel">
-	 <x>210</x>
-	 <y>81</y>
+	 <x>347</x>
+	 <y>77</y>
 	</hint>
 	<hint type="destinationlabel">
 	 <x>212</x>

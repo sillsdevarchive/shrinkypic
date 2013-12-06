@@ -90,4 +90,3 @@ class Ui_Form(object):
 		self.CaptionLabel.setToolTip(QtGui.QApplication.translate("Form", "<html><head/><body><p>Enter a caption for this picture.</p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
 		self.CaptionLabel.setText(QtGui.QApplication.translate("Form", "Caption", None, QtGui.QApplication.UnicodeUTF8))
 		self.PictureSizeLabel.setText(QtGui.QApplication.translate("Form", "Picture Size", None, QtGui.QApplication.UnicodeUTF8))
-
