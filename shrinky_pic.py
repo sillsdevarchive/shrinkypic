@@ -32,6 +32,8 @@ class ShrinkyPicForm (QDialog, shrinky_pic_gui.Ui_Form) :
 	def okClicked (self) :
 		'''Execute the OK button.'''
 
+		view                    = self.ViewCheckBox.isChecked()
+		outline                 = self.OutlineCheckBox.isChecked()
 		inFile                  = self.FileNameEdit.text()
 		(path, ext)             = os.path.splitext(inFile)
 		(thisDir, fileName)     = os.path.split(path)
@@ -42,7 +44,7 @@ class ShrinkyPicForm (QDialog, shrinky_pic_gui.Ui_Form) :
 
 		if os.path.exists(inFile) and ext.lower() in ['.jpg', '.png'] :
 			# Call the main class to do the work with the data we collected
-			self.shrinkyPic.processPicFile(inFile, outFile, rotate, size, caption, False, True)
+			self.shrinkyPic.processPicFile(inFile, outFile, rotate, size, caption, outline, view)
 		else :
 			QMessageBox.warning(self, "Warning", 'Not valid intput file: ' + inFile)
 

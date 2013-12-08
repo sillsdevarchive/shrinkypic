@@ -6,8 +6,8 @@
    <rect>
 	<x>0</x>
 	<y>0</y>
-	<width>237</width>
-	<height>309</height>
+	<width>322</width>
+	<height>385</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,37 +16,10 @@
   <layout class="QHBoxLayout" name="horizontalLayout">
    <item>
 	<layout class="QGridLayout" name="gridLayout">
-	 <item row="2" column="2">
-	  <widget class="QPushButton" name="GetPictureButton">
-	   <property name="toolTip">
-		<string>Browse for a picture to shrink</string>
-	   </property>
-	   <property name="whatsThis">
-		<string>Opens the file browser</string>
-	   </property>
-	   <property name="text">
-		<string>Get Picture</string>
-	   </property>
-	  </widget>
-	 </item>
 	 <item row="4" column="0">
 	  <widget class="QLabel" name="PictureRotationLabel">
 	   <property name="text">
 		<string>Picture Rotation</string>
-	   </property>
-	  </widget>
-	 </item>
-	 <item row="9" column="0">
-	  <widget class="QPushButton" name="OkButton">
-	   <property name="text">
-		<string>OK</string>
-	   </property>
-	  </widget>
-	 </item>
-	 <item row="9" column="1" colspan="2">
-	  <widget class="QPushButton" name="CancelButton">
-	   <property name="text">
-		<string>Cancel</string>
 	   </property>
 	  </widget>
 	 </item>
@@ -57,7 +30,7 @@
 	   </property>
 	  </widget>
 	 </item>
-	 <item row="8" column="0" colspan="3">
+	 <item row="11" column="0" colspan="3">
 	  <widget class="QLineEdit" name="CaptionEdit">
 	   <property name="toolTip">
 		<string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enter a caption for this picture.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -83,7 +56,7 @@
 	   </item>
 	  </widget>
 	 </item>
-	 <item row="7" column="0">
+	 <item row="10" column="0">
 	  <widget class="QLabel" name="CaptionLabel">
 	   <property name="toolTip">
 		<string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enter a caption for this picture.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -100,6 +73,62 @@
 	   </property>
 	  </widget>
 	 </item>
+	 <item row="13" column="0">
+	  <spacer name="horizontalSpacer">
+	   <property name="orientation">
+		<enum>Qt::Horizontal</enum>
+	   </property>
+	   <property name="sizeHint" stdset="0">
+		<size>
+		 <width>40</width>
+		 <height>20</height>
+		</size>
+	   </property>
+	  </spacer>
+	 </item>
+	 <item row="1" column="0" colspan="2">
+	  <widget class="QLineEdit" name="FileNameEdit"/>
+	 </item>
+	 <item row="13" column="2">
+	  <widget class="QPushButton" name="CancelButton">
+	   <property name="text">
+		<string>Cancel</string>
+	   </property>
+	  </widget>
+	 </item>
+	 <item row="13" column="1">
+	  <widget class="QPushButton" name="OkButton">
+	   <property name="text">
+		<string>OK</string>
+	   </property>
+	  </widget>
+	 </item>
+	 <item row="7" column="0">
+	  <widget class="QDial" name="RotationDial">
+	   <property name="minimum">
+		<number>-20</number>
+	   </property>
+	   <property name="maximum">
+		<number>20</number>
+	   </property>
+	   <property name="pageStep">
+		<number>1</number>
+	   </property>
+	  </widget>
+	 </item>
+	 <item row="1" column="2">
+	  <widget class="QPushButton" name="GetPictureButton">
+	   <property name="toolTip">
+		<string>Browse for a picture to shrink</string>
+	   </property>
+	   <property name="whatsThis">
+		<string>Opens the file browser</string>
+	   </property>
+	   <property name="text">
+		<string>Get Picture</string>
+	   </property>
+	  </widget>
+	 </item>
 	 <item row="5" column="0">
 	  <widget class="QSpinBox" name="RotationBox">
 	   <property name="minimum">
@@ -110,22 +139,42 @@
 	   </property>
 	  </widget>
 	 </item>
-	 <item row="1" column="0" colspan="3">
-	  <widget class="QLineEdit" name="FileNameEdit"/>
-	 </item>
-	 <item row="6" column="0">
-	  <widget class="QCheckBox" name="ViewCheckBox">
-	   <property name="text">
-		<string>View</string>
-	   </property>
-	  </widget>
-	 </item>
-	 <item row="6" column="2">
-	  <widget class="QCheckBox" name="OutlineCheckBox">
-	   <property name="text">
-		<string>Outline</string>
-	   </property>
-	  </widget>
+	 <item row="7" column="2">
+	  <layout class="QVBoxLayout" name="verticalLayout">
+	   <item>
+		<spacer name="verticalSpacer">
+		 <property name="orientation">
+		  <enum>Qt::Vertical</enum>
+		 </property>
+		 <property name="sizeHint" stdset="0">
+		  <size>
+		   <width>20</width>
+		   <height>40</height>
+		  </size>
+		 </property>
+		</spacer>
+	   </item>
+	   <item>
+		<widget class="QCheckBox" name="OutlineCheckBox">
+		 <property name="text">
+		  <string>Outline</string>
+		 </property>
+		</widget>
+	   </item>
+	   <item>
+		<widget class="QCheckBox" name="ViewCheckBox">
+		 <property name="toolTip">
+		  <string>Check to view after processing</string>
+		 </property>
+		 <property name="text">
+		  <string>View</string>
+		 </property>
+		 <property name="checked">
+		  <bool>true</bool>
+		 </property>
+		</widget>
+	   </item>
+	  </layout>
 	 </item>
 	</layout>
    </item>
@@ -140,8 +189,8 @@
    <slot>setupUi()</slot>
    <hints>
 	<hint type="sourcelabel">
-	 <x>93</x>
-	 <y>322</y>
+	 <x>103</x>
+	 <y>319</y>
 	</hint>
 	<hint type="destinationlabel">
 	 <x>256</x>
@@ -172,8 +221,8 @@
    <slot>setupUi()</slot>
    <hints>
 	<hint type="sourcelabel">
-	 <x>347</x>
-	 <y>77</y>
+	 <x>360</x>
+	 <y>59</y>
 	</hint>
 	<hint type="destinationlabel">
 	 <x>212</x>
@@ -188,12 +237,28 @@
    <slot>close()</slot>
    <hints>
 	<hint type="sourcelabel">
-	 <x>220</x>
-	 <y>320</y>
+	 <x>349</x>
+	 <y>319</y>
 	</hint>
 	<hint type="destinationlabel">
 	 <x>246</x>
 	 <y>176</y>
+	</hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>RotationDial</sender>
+   <signal>sliderMoved(int)</signal>
+   <receiver>RotationBox</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+	<hint type="sourcelabel">
+	 <x>74</x>
+	 <y>199</y>
+	</hint>
+	<hint type="destinationlabel">
+	 <x>75</x>
+	 <y>165</y>
 	</hint>
    </hints>
   </connection>
