@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=ShrinkyPic
+Exec=bin/shrinky_pic
+Icon=shrinkypic
+Terminal=false

@@ -11,7 +11,11 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>ShrinkyPic</string>
+   <string>ShrinkyPic v0.1</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+	<normaloff>icons/shrinkypic_32.png</normaloff>icons/shrinkypic_32.png</iconset>
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout">
    <item>
