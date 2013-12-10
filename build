@@ -1,5 +1,0 @@
-#!/bin/sh
-
-#pyuic4 -w -o shrinky_pic_gui.py shrinky_pic_gui.ui
-
-pyside-uic shrinky_pic_gui.ui > shrinky_pic_gui.py

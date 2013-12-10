@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# Depreciated - for use with pyuic4
+#pyuic4 -w -o shrinky_pic_gui.py shrinky_pic_gui.ui
+
+# Create a PySide compatable dialogs
+pyside-uic lib/shrinkypic/dialog/main.ui > lib/shrinkypic/dialog/main.py

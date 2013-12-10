@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'shrinky_pic_gui.ui'
+# Form implementation generated from reading ui file 'lib/shrinkypic/dialog/main.ui'
 #
-# Created: Mon Dec  9 20:57:16 2013
+# Created: Tue Dec 10 14:42:23 2013
 #      by: pyside-uic 0.2.13 running on PySide 1.1.0
 #
 # WARNING! All changes made in this file will be lost!
@@ -114,4 +114,3 @@ class Ui_Form(object):
 		self.OutlineCheckBox.setText(QtGui.QApplication.translate("Form", "Outline", None, QtGui.QApplication.UnicodeUTF8))
 		self.ViewCheckBox.setToolTip(QtGui.QApplication.translate("Form", "Check to view after processing", None, QtGui.QApplication.UnicodeUTF8))
 		self.ViewCheckBox.setText(QtGui.QApplication.translate("Form", "View", None, QtGui.QApplication.UnicodeUTF8))
-
