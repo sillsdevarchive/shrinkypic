@@ -20,18 +20,74 @@
 #    suite 500, Boston, MA 02110-1335, USA or visit their web page on the
 #    internet at http://www.fsf.org/licenses/lgpl.html.
 
-									import sys
-from PySide                         import QtGui
-from PySide.QtGui                   import QApplication
-from shrinkypic.dialog.main         import Ui_MainWindow
-from shrinkypic.process.im_process  import
+import sys, os
 
+from PySide                         import QtGui
+from PySide.QtGui                   import QDialog, QMessageBox, QApplication
+from shrinkypic.dialog              import main
+from shrinkypic.process             import im_process
+
+
+class ShrinkyPicMainForm (QDialog, main.Ui_MainWindow) :
+
+	def __init__ (self, parent=None) :
+		'''Initialize and start up the UI'''
+
+		super(ShrinkyPicMainForm, self).__init__(parent)
+		self.imProcess = im_process.ImProcess()
+		self.setupUi(self)
+		self.connectionActions()
+
+	def main (self) :
+		'''This function shows the main dialog'''
+
+		self.show()
+
+	def connectionActions (self) :
+		'''Connect to form buttons.'''
+
+		self.OkButton.clicked.connect(self.okClicked)
+		self.GetPictureButton.clicked.connect(self.getPictureFile)
+
+	def okClicked (self) :
+		'''Execute the OK button.'''
+
+		view                    = self.ViewCheckBox.isChecked()
+		outline                 = self.OutlineCheckBox.isChecked()
+		inFile                  = self.FileNameEdit.text()
+		(path, ext)             = os.path.splitext(inFile)
+		(thisDir, fileName)     = os.path.split(path)
+		caption                 = self.CaptionEdit.text()
+		size                    = self.SizeSelect.currentText()
+		rotate                  = self.RotationBox.text()
+		outFile                 = os.path.join(thisDir, fileName + '-' + size + '_' + str(rotate) + '.png')
+
+		if os.path.exists(inFile) and ext.lower() in ['.jpg', '.png'] :
+			# Call the main class to do the work with the data we collected
+			self.imProcess.processPicFile(inFile, outFile, rotate, size, caption, outline, view)
+		else :
+			QMessageBox.warning(self, "Warning", 'Not valid intput file: ' + inFile)
+
+
+	def getPictureFile (self) :
+		'''Call a basic find file widget to get the file we want to process.'''
+
+		fileName = None
+		dialog = QtGui.QFileDialog(self, "Find a Picture")
+		dialog.setViewMode(QtGui.QFileDialog.Detail)
+		dialog.setAcceptMode(QtGui.QFileDialog.AcceptOpen)
+		dialog.setFileMode(QtGui.QFileDialog.ExistingFile)
+		if dialog.exec_():
+			fileName = dialog.selectedFiles()[0]
+
+		# When the file is found, change the FileNameEdit text
+		self.FileNameEdit.setText(fileName)
 
 
 # Script starts running from here
 if __name__ == '__main__' :
 
 	app = QApplication(sys.argv)
-	window = Ui_MainWindow()
+	window = ShrinkyPicMainForm()
 	window.main()
 	sys.exit(app.exec_())

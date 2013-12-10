@@ -2,11 +2,14 @@
 # -*- coding: utf-8 -*-
 
 # Modules needed for ShrinkyPic class
-import sys, os, codecs, shutil, argparse, subprocess, csv, tempfile
+import sys, os, shutil, subprocess, tempfile
+from shrinkypic.process             import crush
 
 
-class ShrinkyPic (object) :
+class ImProcess (object) :
 
+	def __init__ (self, parent=None) :
+		self.crush = crush.Crush()
 
 	###############################################################################
 	############################## General Functions ##############################
@@ -26,19 +29,15 @@ class ShrinkyPic (object) :
 		if rCode == 0 :
 			return outFile
 		else :
+
+
+
+
+#FIXME: Add an error dialog box for this
 			sys.exit('ERROR: Failed to add outline to file: ' + inFile + ' (shrinky_pic.outlinPic())')
 
 
-	def crushPic (self, inFile) :
-		'''Use the pngnq utility to take out the fluff from a PNG file.'''
 
-		rc = subprocess.call(['pngnq', inFile])
-		# Clean up - The only way I could seem to get pngnq to work in this
-		# configuration was to let it put its special extention on the back.
-		# Because of this, some cleanup has to be done.
-		crushFile = inFile.replace('.png', '-nq8.png')
-		shutil.copyfile(crushFile, inFile)
-		os.remove(crushFile)
 
 
 	def processPicFile (self, inFile, outFile, rotate, size, caption, outline=False, viewer=False) :
@@ -49,7 +48,7 @@ class ShrinkyPic (object) :
 		shutil.copyfile(inFile, workFile)
 
 		# Add an outline to a pic
-		# FIXME: May need to turn this into an option at some point
+# FIXME: May need to turn this into an option at some point
 		if outline :
 			workFile        = self.outlinePic(workFile)
 
@@ -87,7 +86,7 @@ class ShrinkyPic (object) :
 		# Process and report the return code
 		if rCode == 0 :
 			if size.lower() == 'small' :
-				self.crushPic(outFile)
+				self.crush.crushPic(outFile)
 
 			# View the results (os.system allows the terminal to return right away)
 			if viewer :
@@ -110,14 +109,3 @@ class ShrinkyPic (object) :
 		if f.rfind('.') != -1 :
 			if f[f.rfind('.')+1:].lower() in imageTypes :
 				return True
-
-
-
-
-# Script starts running from here
-if __name__ == '__main__' :
-
-	app = QApplication(sys.argv)
-	window = ShrinkyPicForm()
-	window.main()
-	sys.exit(app.exec_())

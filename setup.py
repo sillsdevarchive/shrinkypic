@@ -2,7 +2,6 @@
 
 from distutils.core import setup
 from glob import glob
-import os
 
 
 setup(name = 'shrinkypic',
@@ -15,7 +14,6 @@ setup(name = 'shrinkypic',
 		packages = ["shrinkypic", 'shrinkypic.dialog', 'shrinkypic.icon', 'shrinkypic.process'],
 		scripts = glob("shrinkypic*"),
 		license = 'LGPL',
-		data_files = datafiles
 	 )
 
 

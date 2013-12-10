@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'lib/shrinkypic/dialog/main.ui'
 #
-# Created: Tue Dec 10 18:46:25 2013
+# Created: Tue Dec 10 20:25:18 2013
 #      by: pyside-uic 0.2.13 running on PySide 1.1.0
 #
 # WARNING! All changes made in this file will be lost!
@@ -14,7 +14,7 @@ class Ui_MainWindow(object):
 		MainWindow.setObjectName("MainWindow")
 		MainWindow.resize(322, 385)
 		icon = QtGui.QIcon()
-		icon.addPixmap(QtGui.QPixmap("icons/shrinkypic_32.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+		icon.addPixmap(QtGui.QPixmap("../icon/shrinkypic_32.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
 		MainWindow.setWindowIcon(icon)
 		self.horizontalLayout = QtGui.QHBoxLayout(MainWindow)
 		self.horizontalLayout.setObjectName("horizontalLayout")
@@ -89,7 +89,7 @@ class Ui_MainWindow(object):
 		QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
 	def retranslateUi(self, MainWindow):
-		MainWindow.setWindowTitle(QtGui.QApplication.translate("MainWindow", "ShrinkyPic - v0.1.r18", None, QtGui.QApplication.UnicodeUTF8))
+		MainWindow.setWindowTitle(QtGui.QApplication.translate("MainWindow", "ShrinkyPic - v0.1.r20", None, QtGui.QApplication.UnicodeUTF8))
 		self.PictureRotationLabel.setText(QtGui.QApplication.translate("MainWindow", "Picture Rotation", None, QtGui.QApplication.UnicodeUTF8))
 		self.FileNameLabel.setText(QtGui.QApplication.translate("MainWindow", "File Name", None, QtGui.QApplication.UnicodeUTF8))
 		self.CaptionEdit.setToolTip(QtGui.QApplication.translate("MainWindow", "Enter a caption for this picture", None, QtGui.QApplication.UnicodeUTF8))
