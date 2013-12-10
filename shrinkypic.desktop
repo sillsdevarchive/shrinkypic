@@ -4,3 +4,4 @@ Name=ShrinkyPic
 Exec=bin/shrinky_pic
 Icon=shrinkypic
 Terminal=false
+Name[en_US]=shrinkypic

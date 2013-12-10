@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'shrinky_pic_gui.ui'
 #
-# Created: Mon Dec  9 16:32:36 2013
+# Created: Mon Dec  9 20:57:16 2013
 #      by: pyside-uic 0.2.13 running on PySide 1.1.0
 #
 # WARNING! All changes made in this file will be lost!
@@ -89,21 +89,28 @@ class Ui_Form(object):
 		QtCore.QMetaObject.connectSlotsByName(Form)
 
 	def retranslateUi(self, Form):
-		Form.setWindowTitle(QtGui.QApplication.translate("Form", "ShrinkyPic v0.1", None, QtGui.QApplication.UnicodeUTF8))
+		Form.setWindowTitle(QtGui.QApplication.translate("Form", "ShrinkyPic - v0.1", None, QtGui.QApplication.UnicodeUTF8))
 		self.PictureRotationLabel.setText(QtGui.QApplication.translate("Form", "Picture Rotation", None, QtGui.QApplication.UnicodeUTF8))
 		self.FileNameLabel.setText(QtGui.QApplication.translate("Form", "File Name", None, QtGui.QApplication.UnicodeUTF8))
-		self.CaptionEdit.setToolTip(QtGui.QApplication.translate("Form", "<html><head/><body><p>Enter a caption for this picture.</p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
+		self.CaptionEdit.setToolTip(QtGui.QApplication.translate("Form", "Enter a caption for this picture", None, QtGui.QApplication.UnicodeUTF8))
+		self.SizeSelect.setToolTip(QtGui.QApplication.translate("Form", "Choose a size to output the picture", None, QtGui.QApplication.UnicodeUTF8))
 		self.SizeSelect.setItemText(0, QtGui.QApplication.translate("Form", "Small", None, QtGui.QApplication.UnicodeUTF8))
 		self.SizeSelect.setItemText(1, QtGui.QApplication.translate("Form", "Medium", None, QtGui.QApplication.UnicodeUTF8))
 		self.SizeSelect.setItemText(2, QtGui.QApplication.translate("Form", "Large", None, QtGui.QApplication.UnicodeUTF8))
 		self.CaptionLabel.setToolTip(QtGui.QApplication.translate("Form", "<html><head/><body><p>Enter a caption for this picture.</p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
 		self.CaptionLabel.setText(QtGui.QApplication.translate("Form", "Caption", None, QtGui.QApplication.UnicodeUTF8))
 		self.PictureSizeLabel.setText(QtGui.QApplication.translate("Form", "Picture Size", None, QtGui.QApplication.UnicodeUTF8))
+		self.FileNameEdit.setToolTip(QtGui.QApplication.translate("Form", "Enter the original picture path and file name", None, QtGui.QApplication.UnicodeUTF8))
+		self.CancelButton.setToolTip(QtGui.QApplication.translate("Form", "Click to close the program", None, QtGui.QApplication.UnicodeUTF8))
 		self.CancelButton.setText(QtGui.QApplication.translate("Form", "Cancel", None, QtGui.QApplication.UnicodeUTF8))
+		self.OkButton.setToolTip(QtGui.QApplication.translate("Form", "Click to begin process", None, QtGui.QApplication.UnicodeUTF8))
 		self.OkButton.setText(QtGui.QApplication.translate("Form", "OK", None, QtGui.QApplication.UnicodeUTF8))
+		self.RotationDial.setToolTip(QtGui.QApplication.translate("Form", "Rotate to change picture orientation", None, QtGui.QApplication.UnicodeUTF8))
 		self.GetPictureButton.setToolTip(QtGui.QApplication.translate("Form", "Browse for a picture to shrink", None, QtGui.QApplication.UnicodeUTF8))
 		self.GetPictureButton.setWhatsThis(QtGui.QApplication.translate("Form", "Opens the file browser", None, QtGui.QApplication.UnicodeUTF8))
 		self.GetPictureButton.setText(QtGui.QApplication.translate("Form", "Get Picture", None, QtGui.QApplication.UnicodeUTF8))
+		self.RotationBox.setToolTip(QtGui.QApplication.translate("Form", "Change picture orientation (-20 to 20 degrees)", None, QtGui.QApplication.UnicodeUTF8))
+		self.OutlineCheckBox.setToolTip(QtGui.QApplication.translate("Form", "Add an outline to the picture", None, QtGui.QApplication.UnicodeUTF8))
 		self.OutlineCheckBox.setText(QtGui.QApplication.translate("Form", "Outline", None, QtGui.QApplication.UnicodeUTF8))
 		self.ViewCheckBox.setToolTip(QtGui.QApplication.translate("Form", "Check to view after processing", None, QtGui.QApplication.UnicodeUTF8))
 		self.ViewCheckBox.setText(QtGui.QApplication.translate("Form", "View", None, QtGui.QApplication.UnicodeUTF8))

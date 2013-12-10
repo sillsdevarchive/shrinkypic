@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>ShrinkyPic v0.1</string>
+   <string>ShrinkyPic - v0.1</string>
   </property>
   <property name="windowIcon">
    <iconset>
@@ -37,12 +37,15 @@
 	 <item row="11" column="0" colspan="3">
 	  <widget class="QLineEdit" name="CaptionEdit">
 	   <property name="toolTip">
-		<string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enter a caption for this picture.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+		<string>Enter a caption for this picture</string>
 	   </property>
 	  </widget>
 	 </item>
 	 <item row="3" column="0">
 	  <widget class="QComboBox" name="SizeSelect">
+	   <property name="toolTip">
+		<string>Choose a size to output the picture</string>
+	   </property>
 	   <item>
 		<property name="text">
 		 <string>Small</string>
@@ -91,10 +94,17 @@
 	  </spacer>
 	 </item>
 	 <item row="1" column="0" colspan="2">
-	  <widget class="QLineEdit" name="FileNameEdit"/>
+	  <widget class="QLineEdit" name="FileNameEdit">
+	   <property name="toolTip">
+		<string>Enter the original picture path and file name</string>
+	   </property>
+	  </widget>
 	 </item>
 	 <item row="13" column="2">
 	  <widget class="QPushButton" name="CancelButton">
+	   <property name="toolTip">
+		<string>Click to close the program</string>
+	   </property>
 	   <property name="text">
 		<string>Cancel</string>
 	   </property>
@@ -102,6 +112,9 @@
 	 </item>
 	 <item row="13" column="1">
 	  <widget class="QPushButton" name="OkButton">
+	   <property name="toolTip">
+		<string>Click to begin process</string>
+	   </property>
 	   <property name="text">
 		<string>OK</string>
 	   </property>
@@ -109,6 +122,9 @@
 	 </item>
 	 <item row="7" column="0">
 	  <widget class="QDial" name="RotationDial">
+	   <property name="toolTip">
+		<string>Rotate to change picture orientation</string>
+	   </property>
 	   <property name="minimum">
 		<number>-20</number>
 	   </property>
@@ -135,6 +151,9 @@
 	 </item>
 	 <item row="5" column="0">
 	  <widget class="QSpinBox" name="RotationBox">
+	   <property name="toolTip">
+		<string>Change picture orientation (-20 to 20 degrees)</string>
+	   </property>
 	   <property name="minimum">
 		<number>-20</number>
 	   </property>
@@ -160,6 +179,9 @@
 	   </item>
 	   <item>
 		<widget class="QCheckBox" name="OutlineCheckBox">
+		 <property name="toolTip">
+		  <string>Add an outline to the picture</string>
+		 </property>
 		 <property name="text">
 		  <string>Outline</string>
 		 </property>
