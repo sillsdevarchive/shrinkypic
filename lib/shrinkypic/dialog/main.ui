@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Form</class>
- <widget class="QWidget" name="Form">
+ <class>MainWindow</class>
+ <widget class="QWidget" name="MainWindow">
   <property name="geometry">
    <rect>
 	<x>0</x>
@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>ShrinkyPic - v0.1</string>
+   <string>ShrinkyPic - v0.1.r18</string>
   </property>
   <property name="windowIcon">
    <iconset>
@@ -211,7 +211,7 @@
   <connection>
    <sender>OkButton</sender>
    <signal>pressed()</signal>
-   <receiver>Form</receiver>
+   <receiver>MainWindow</receiver>
    <slot>setupUi()</slot>
    <hints>
 	<hint type="sourcelabel">
@@ -227,7 +227,7 @@
   <connection>
    <sender>CaptionEdit</sender>
    <signal>textChanged(QString)</signal>
-   <receiver>Form</receiver>
+   <receiver>MainWindow</receiver>
    <slot>setupUi()</slot>
    <hints>
 	<hint type="sourcelabel">
@@ -243,7 +243,7 @@
   <connection>
    <sender>GetPictureButton</sender>
    <signal>clicked()</signal>
-   <receiver>Form</receiver>
+   <receiver>MainWindow</receiver>
    <slot>setupUi()</slot>
    <hints>
 	<hint type="sourcelabel">
@@ -259,7 +259,7 @@
   <connection>
    <sender>CancelButton</sender>
    <signal>clicked()</signal>
-   <receiver>Form</receiver>
+   <receiver>MainWindow</receiver>
    <slot>close()</slot>
    <hints>
 	<hint type="sourcelabel">
