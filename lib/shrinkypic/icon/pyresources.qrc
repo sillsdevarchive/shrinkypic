@@ -1,0 +1,9 @@
+<!DOCTYPE RCC><RCC version="1.0">
+	<qresource>
+		<file>shrinkypic_16.png</file>
+		<file>shrinkypic_32.png</file>
+		<file>shrinkypic_48.png</file>
+		<file>shrinkypic_96.png</file>
+		<file>shrinkypic_256.png</file>
+	</qresource>
+</RCC>

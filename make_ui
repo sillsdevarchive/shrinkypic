@@ -5,3 +5,6 @@
 
 # Create a PySide compatable dialogs
 pyside-uic lib/shrinkypic/dialog/main.ui > lib/shrinkypic/dialog/main.py
+
+# Setup icon resources
+pyside-rcc -o lib/shrinkypic/icon/pyresources.py lib/shrinkypic/icon/pyresources.qrc

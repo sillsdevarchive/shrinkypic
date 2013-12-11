@@ -20,12 +20,18 @@
 #    suite 500, Boston, MA 02110-1335, USA or visit their web page on the
 #    internet at http://www.fsf.org/licenses/lgpl.html.
 
+# Import modules
 import sys, os
 
 from PySide                         import QtGui
 from PySide.QtGui                   import QDialog, QMessageBox, QApplication
 from shrinkypic.dialog              import main
 from shrinkypic.process             import im_process
+from shrinkypic.icon.pyresources    import qInitResources, qCleanupResources
+
+# Set some global vars
+systemName                          = 'ShrinkyPic'
+systemVersion                       = '0.1.r20'
 
 
 class ShrinkyPicMainForm (QDialog, main.Ui_MainWindow) :
@@ -34,6 +40,16 @@ class ShrinkyPicMainForm (QDialog, main.Ui_MainWindow) :
 		'''Initialize and start up the UI'''
 
 		super(ShrinkyPicMainForm, self).__init__(parent)
+		# Init app resources
+		qInitResources()
+		appicon = QtGui.QIcon(':/shrinkypic_256.png')
+		appicon.addFile(':/shrinkypic_96.png')
+		appicon.addFile(':/shrinkypic_48.png')
+		appicon.addFile(':/shrinkypic_32.png')
+		appicon.addFile(':/shrinkypic_16.png')
+		appicon.addFile(':/shrinkypic.svg')
+
+		self.setWindowIcon(appicon)
 		self.imProcess = im_process.ImProcess()
 		self.setupUi(self)
 		self.connectionActions()
@@ -82,6 +98,50 @@ class ShrinkyPicMainForm (QDialog, main.Ui_MainWindow) :
 
 		# When the file is found, change the FileNameEdit text
 		self.FileNameEdit.setText(fileName)
+
+
+###############################################################################
+############################### Argparser Setup ###############################
+###############################################################################
+
+# The argument handler
+#def userArguments (args) :
+#    '''Process incoming command arguments.'''
+
+#    if isCsv(args.filename) :
+#        processCsvFile(os.path.realpath(os.path.expanduser(args.filename)))
+#    elif isImage(args.filename) :
+
+#        # Give a welcome message
+#        print '\n\t\tWelcome to ' + systemName
+#        print '\n\t\tVersion ' + systemVersion + '\n'
+
+
+#        processPicFile(args.filename, args.rotate, args.size, args.caption, args.outline, args.subdir, True)
+
+
+
+#    else :
+#        sys.exit('ERROR: File name [' + args.filename + '] could not be processed.')
+
+
+## Setup the arg parser
+#parser = argparse.ArgumentParser(description=systemName)
+
+## Add main arguments (first postion options)
+##parser.add_argument('-a', '--about', action='store_true', help = 'The shrinky_pic script resizes images for use in an eUpdate email message and Dreschers Info newsletters.  It starts with JPG of any size and ends with a 400x300 72 dpi compressed PNG image and a larger 800x600 300 dpi PNG image.')
+#parser.add_argument('filename', help='The file to process (a positional argument required for all actions with this process)')
+#parser.add_argument('-c', '--caption', help='A caption to add to the output files.')
+#parser.add_argument('-r', '--rotate', help='Degrees to rotate the output. Default is none.')
+#parser.add_argument('-s', '--size', choices=['small', 'medium', 'large'], help='Size of the output, small, medium, or large.')
+#parser.add_argument('-o', '--outline', choices=['True', 'true', 'False', 'false'], help='Add a thin outline around the base picture.')
+#parser.add_argument('-d', '--subdir', help='Create a sub folder in the current folder to output the new files.')
+
+## Send the collected arguments to the handler
+#userArguments(parser.parse_args())
+
+
+
 
 
 # Script starts running from here
