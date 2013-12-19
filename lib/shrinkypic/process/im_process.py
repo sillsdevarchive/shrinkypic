@@ -11,6 +11,7 @@ class ImProcess (object) :
 	def __init__ (self, parent=None) :
 		self.crush = crush.Crush()
 
+
 	###############################################################################
 	############################## General Functions ##############################
 	###############################################################################
@@ -30,10 +31,8 @@ class ImProcess (object) :
 			return outFile
 		else :
 
+#FIXME: Set this up to use try and push the exception error to a dialog
 
-
-
-#FIXME: Add an error dialog box for this
 			sys.exit('ERROR: Failed to add outline to file: ' + inFile + ' (shrinky_pic.outlinPic())')
 
 
@@ -48,8 +47,7 @@ class ImProcess (object) :
 		shutil.copyfile(inFile, workFile)
 
 		# Add an outline to a pic
-# FIXME: May need to turn this into an option at some point
-		if outline :
+		if outline.capitalize() == "True" or outline == True :
 			workFile        = self.outlinePic(workFile)
 
 		# Begin the output command set
@@ -84,6 +82,11 @@ class ImProcess (object) :
 		# Run the command
 		rCode = subprocess.call(cmds)
 		# Process and report the return code
+
+
+#FIXME: Set this up to use try and push the exception error to a dialog
+
+
 		if rCode == 0 :
 			if size.lower() == 'small' :
 				self.crush.crushPic(outFile)
