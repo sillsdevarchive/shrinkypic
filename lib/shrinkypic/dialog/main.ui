@@ -6,12 +6,12 @@
    <rect>
 	<x>0</x>
 	<y>0</y>
-	<width>322</width>
+	<width>326</width>
 	<height>385</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>ShrinkyPic - v0.1.r21</string>
+   <string>ShrinkyPic - v0.1.r25</string>
   </property>
   <property name="windowIcon">
    <iconset>

@@ -93,7 +93,7 @@ class Ui_MainWindow(object):
 		QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
 	def retranslateUi(self, MainWindow):
-		MainWindow.setWindowTitle(QtGui.QApplication.translate("MainWindow", "ShrinkyPic - v0.1.r21", None, QtGui.QApplication.UnicodeUTF8))
+		MainWindow.setWindowTitle(QtGui.QApplication.translate("MainWindow", "ShrinkyPic - v0.1.r25", None, QtGui.QApplication.UnicodeUTF8))
 		self.PictureRotationLabel.setText(QtGui.QApplication.translate("MainWindow", "Picture Rotation", None, QtGui.QApplication.UnicodeUTF8))
 		self.FileNameLabel.setText(QtGui.QApplication.translate("MainWindow", "File Name", None, QtGui.QApplication.UnicodeUTF8))
 		self.CaptionEdit.setToolTip(QtGui.QApplication.translate("MainWindow", "Enter a caption for this picture", None, QtGui.QApplication.UnicodeUTF8))

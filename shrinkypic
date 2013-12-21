@@ -22,7 +22,6 @@
 
 # Import modules
 import sys, os, argparse
-
 from PySide                         import QtGui
 from PySide.QtGui                   import QDialog, QMessageBox, QApplication
 from shrinkypic.dialog              import main
@@ -31,7 +30,7 @@ from shrinkypic.icon.pyresources    import qInitResources, qCleanupResources
 
 # Set some global vars
 systemName                          = 'ShrinkyPic'
-systemVersion                       = '0.1.r21'
+systemVersion                       = '0.1.r25'
 
 
 class ShrinkyPicMainForm (QDialog, main.Ui_MainWindow) :
