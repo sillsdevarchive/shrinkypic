@@ -31,7 +31,7 @@ from shrinkypic.icon.pyresources    import qInitResources, qCleanupResources
 
 # Set some global vars
 systemName                          = 'ShrinkyPic'
-systemVersion                       = '0.1.r21a'
+systemVersion                       = '0.1.r21'
 
 
 class ShrinkyPicMainForm (QDialog, main.Ui_MainWindow) :
@@ -68,12 +68,9 @@ class ShrinkyPicMainForm (QDialog, main.Ui_MainWindow) :
 	def okClicked (self) :
 		'''Execute the OK button.'''
 
-
-# FIXME: Add a crush/compress option to dialog and here as well
-
-
 		view                    = self.ViewCheckBox.isChecked()
 		outline                 = self.OutlineCheckBox.isChecked()
+		compress                = self.CompressCheckBox.isChecked()
 		inFile                  = self.FileNameEdit.text()
 		caption                 = self.CaptionEdit.text()
 		size                    = self.SizeSelect.currentText()
@@ -82,7 +79,7 @@ class ShrinkyPicMainForm (QDialog, main.Ui_MainWindow) :
 
 		if os.path.exists(inFile) and os.path.splitext(inFile)[1].lower() in ['.jpg', '.png'] :
 			# Call the main class to do the work with the data we collected
-			self.imProcess.processPicFile(inFile, outFile, rotate, size, caption, outline, view)
+			self.imProcess.processPicFile(inFile, outFile, rotate, size, caption, outline, view, compress)
 		else :
 			QMessageBox.warning(self, "Warning", 'Not valid intput file: ' + inFile)
 
@@ -109,7 +106,7 @@ def getOutfileName (inFile, size, rotate) :
 	(path, ext)             = os.path.splitext(inFile)
 	(thisDir, fileName)     = os.path.split(path)
 
-	return os.path.join(thisDir, fileName + '-' + size + '_' + str(rotate) + '.png')
+	return os.path.join(thisDir, fileName + '-' + size.capitalize() + '_' + str(rotate) + '.png')
 
 ###############################################################################
 ############################### Argparser Setup ###############################
@@ -128,11 +125,11 @@ def processUserArguments (args) :
 	size        = args.size
 	caption     = args.caption
 	outline     = args.outline
+	compress    = args.compress
 	view        = True
 	outFile     = getOutfileName(inFile, size, rotate)
 
-	im_process.ImProcess().processPicFile(inFile, outFile, rotate, size, caption, outline, view)
-#    processPicFile(args.filename, args.rotate, args.size, args.caption, args.outline, args.subdir, True)
+	im_process.ImProcess().processPicFile(inFile, outFile, rotate, size, caption, outline, view, compress)
 
 
 # Script starts running from here
@@ -141,18 +138,18 @@ if __name__ == '__main__' :
 	# Setup the arg parser
 	parser = argparse.ArgumentParser(description=systemName)
 
+	# Argument choices
+	trueFalse   = ['True', 'true', 'False', 'false']
+	sizes       = ['small', 'Small', 'medium', 'Medium', 'large', 'Large']
+
 	# Add main arguments (first postion options)
 	#parser.add_argument('-a', '--about', action='store_true', help = 'The shrinky_pic script resizes images for use in an eUpdate email message and Dreschers Info newsletters.  It starts with JPG of any size and ends with a 400x300 72 dpi compressed PNG image and a larger 800x600 300 dpi PNG image.')
 	parser.add_argument('filename', help='The file to process (a positional argument required for all actions with this process)')
 	parser.add_argument('-c', '--caption', default='', help='A caption to add to the output files.')
 	parser.add_argument('-r', '--rotate', default=0, help='Degrees to rotate the output. Default is none.')
-	parser.add_argument('-s', '--size', default='small', choices=['small', 'medium', 'large'], help='Size of the output, small, medium, or large.')
-	parser.add_argument('-o', '--outline', default=True, choices=['True', 'true', 'False', 'false'], help='Add a thin outline around the base picture.')
-
-
-#FIXME: add a crush/compress option to commands
-
-
+	parser.add_argument('-s', '--size', default='small', choices=sizes, help='Size of the output, small, medium, or large.')
+	parser.add_argument('-o', '--outline', default=True, choices=trueFalse, help='Add a thin outline around the base picture.')
+	parser.add_argument('-p', '--compress', default=True, choices=trueFalse, help='Compress output file with pngnq.')
 
 	app = QApplication(sys.argv)
 	if len(sys.argv) == 1 :

@@ -1,15 +1,35 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-# Modules needed for ShrinkyPic class
+#    Copyright 2014, Dennis Drescher
+#    All rights reserved.
+#
+#    This library is free software; you can redistribute it and/or modify
+#    it under the terms of the GNU Lesser General Public License as published
+#    by the Free Software Foundation; either version 2.1 of License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+#    Lesser General Public License for more details.
+#
+#    You should also have received a copy of the GNU Lesser General Public
+#    License along with this library in the file named "LICENSE".
+#    If not, write to the Free Software Foundation, 51 Franklin Street,
+#    suite 500, Boston, MA 02110-1335, USA or visit their web page on the
+#    internet at http://www.fsf.org/licenses/lgpl.html.
+
+# Import modules
 import sys, os, shutil, subprocess, tempfile
-from shrinkypic.process             import crush
+from shrinkypic.process             import crush, tools
 
 
 class ImProcess (object) :
 
 	def __init__ (self, parent=None) :
-		self.crush = crush.Crush()
+		self.crush          = crush.Crush()
+		self.tools          = tools.Tools()
 
 
 	###############################################################################
@@ -25,21 +45,14 @@ class ImProcess (object) :
 		cmd = ['convert', inFile, '-bordercolor', 'black', '-border', '1x1', outFile]
 
 		# Run the command
-		rCode = subprocess.call(cmd)
-		# Process and report the return code
-		if rCode == 0 :
+		try :
+			rCode = subprocess.call(cmd)
 			return outFile
-		else :
-
-#FIXME: Set this up to use try and push the exception error to a dialog
-
-			sys.exit('ERROR: Failed to add outline to file: ' + inFile + ' (shrinky_pic.outlinPic())')
+		except Exception as e :
+			self.tools.sendError('Imagemagick outline failed with: ' + str(e))
 
 
-
-
-
-	def processPicFile (self, inFile, outFile, rotate, size, caption, outline=False, viewer=False) :
+	def processPicFile (self, inFile, outFile, rotate, size, caption, outline=False, viewer=False, compress=True) :
 		'''Prepare the arguments for an Imagemagick process and then run the process.'''
 
 		# Make tempfile
@@ -47,7 +60,7 @@ class ImProcess (object) :
 		shutil.copyfile(inFile, workFile)
 
 		# Add an outline to a pic
-		if outline.capitalize() == "True" or outline == True :
+		if self.tools.str2bool(outline) :
 			workFile        = self.outlinePic(workFile)
 
 		# Begin the output command set
@@ -80,35 +93,18 @@ class ImProcess (object) :
 			cmds.append(c)
 
 		# Run the command
-		rCode = subprocess.call(cmds)
-		# Process and report the return code
+		try :
+			rCode = subprocess.call(cmds)
+		except Exception as e :
+			self.sendError('Imagemagick failed with: ' + str(e))
+
+		# Compress the output if required
+		if self.tools.str2bool(compress) :
+			self.crush.crushPic(outFile)
+
+		# View the results (os.system allows the terminal to return right away)
+		if self.tools.str2bool(viewer) :
+			os.system('eog ' + outFile + ' &')
 
 
-#FIXME: Set this up to use try and push the exception error to a dialog
 
-
-		if rCode == 0 :
-			if size.lower() == 'small' :
-				self.crush.crushPic(outFile)
-
-			# View the results (os.system allows the terminal to return right away)
-			if viewer :
-				os.system('eog ' + outFile + ' &')
-
-
-	################################################################################
-	################################# Util Functions ###############################
-	################################################################################
-
-
-	def isImage (self, filename) :
-		'''Return True if this is an image file that can be processed.'''
-
-		# Define a couple image types we can work with
-		imageTypes = ['jpg', 'png', 'tiff', 'tif']
-
-		# Look at file extention first
-		f = os.path.split(filename)[1]
-		if f.rfind('.') != -1 :
-			if f[f.rfind('.')+1:].lower() in imageTypes :
-				return True

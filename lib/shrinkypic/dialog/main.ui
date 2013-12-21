@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>ShrinkyPic - v0.1.r20</string>
+   <string>ShrinkyPic - v0.1.r21</string>
   </property>
   <property name="windowIcon">
    <iconset>
@@ -176,6 +176,19 @@
 		  </size>
 		 </property>
 		</spacer>
+	   </item>
+	   <item>
+		<widget class="QCheckBox" name="CompressCheckBox">
+		 <property name="toolTip">
+		  <string>Compress output file with pngnq</string>
+		 </property>
+		 <property name="text">
+		  <string>Compress</string>
+		 </property>
+		 <property name="checked">
+		  <bool>true</bool>
+		 </property>
+		</widget>
 	   </item>
 	   <item>
 		<widget class="QCheckBox" name="OutlineCheckBox">

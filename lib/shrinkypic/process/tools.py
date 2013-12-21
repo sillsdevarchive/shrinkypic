@@ -21,33 +21,29 @@
 #    internet at http://www.fsf.org/licenses/lgpl.html.
 
 # Import modules
-import os, shutil, subprocess
-from shrinkypic.process             import tools
 from Tkinter                        import *
 import tkMessageBox
 
 
-class Crush (object) :
-	'''PNG file reduction module.'''
-
-	def __init__ (self) :
-		self.tools          = tools.Tools()
-
-
-	def crushPic (self, inFile) :
-		'''Use the pngnq utility to take out the fluff from a PNG file.'''
-
-		try :
-			rc = subprocess.call(['pngnq', inFile])
-		except Exception as e :
-			self.tools.sendError('pngnq failed with: ' + str(e))
-
-		# Clean up - The only way I could seem to get pngnq to work in this
-		# configuration was to let it put its special extention on the back.
-		# Because of this, some cleanup has to be done.
-		crushFile = inFile.replace('.png', '-nq8.png')
-		shutil.copyfile(crushFile, inFile)
-		os.remove(crushFile)
+class Tools (object) :
 
 
 
+	def str2bool (self, string) :
+		'''Simple boolean tester'''
+
+		if isinstance(string, basestring) and string.lower() in ['0','false','no']:
+			return False
+		else :
+			return bool(string)
+
+
+	def sendError (self, msg) :
+		'''Send an error message.'''
+
+		window = Tk()
+		window.wm_withdraw()
+
+		# Send out an error message at x:200,y:200
+		window.geometry("1x1+200+200")#remember its .geometry("WidthxHeight(+or-)X(+or-)Y")
+		tkMessageBox.showerror(title="error", message=msg, parent=window)

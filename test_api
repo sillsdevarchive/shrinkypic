@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# Test the ShrinkyPic Command line API
+
+shrinkypic ./testing/table.jpg -s "medium" -o False -p True
