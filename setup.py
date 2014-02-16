@@ -26,7 +26,7 @@ from glob import glob
 
 
 setup(name = 'shrinkypic',
-		version = '0.1.r25',
+		version = '0.1.r26',
 		description = "Image Processing Application",
 		long_description = "ShrinkyPic is a simple image processing application that provides a (very) small interface for Imagemagick.",
 		maintainer = "Dennis Drescher",

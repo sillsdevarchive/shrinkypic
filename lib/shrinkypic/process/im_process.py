@@ -22,13 +22,12 @@
 
 # Import modules
 import sys, os, shutil, subprocess, tempfile
-from shrinkypic.process             import crush, tools
+from shrinkypic.process             import tools
 
 
 class ImProcess (object) :
 
 	def __init__ (self, parent=None) :
-		self.crush          = crush.Crush()
 		self.tools          = tools.Tools()
 
 
@@ -41,7 +40,7 @@ class ImProcess (object) :
 		that was just created.'''
 
 		(name, ext)     = os.path.splitext(inFile)
-		outFile         = name + '-border.png'
+		outFile         = name + '-border.jpg'
 		cmd = ['convert', inFile, '-bordercolor', 'black', '-border', '1x1', outFile]
 
 		# Run the command
@@ -56,7 +55,7 @@ class ImProcess (object) :
 		'''Prepare the arguments for an Imagemagick process and then run the process.'''
 
 		# Make tempfile
-		workFile        = tempfile.NamedTemporaryFile().name + '.png'
+		workFile        = tempfile.NamedTemporaryFile().name + '.jpg'
 		shutil.copyfile(inFile, workFile)
 
 		# Add an outline to a pic
@@ -97,10 +96,6 @@ class ImProcess (object) :
 			rCode = subprocess.call(cmds)
 		except Exception as e :
 			self.sendError('Imagemagick failed with: ' + str(e))
-
-		# Compress the output if required
-		if self.tools.str2bool(compress) :
-			self.crush.crushPic(outFile)
 
 		# View the results (os.system allows the terminal to return right away)
 		if self.tools.str2bool(viewer) :

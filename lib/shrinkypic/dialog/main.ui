@@ -6,12 +6,12 @@
    <rect>
 	<x>0</x>
 	<y>0</y>
-	<width>326</width>
-	<height>385</height>
+	<width>321</width>
+	<height>382</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>ShrinkyPic - v0.1.r25</string>
+   <string>ShrinkyPic - v0.1.r26</string>
   </property>
   <property name="windowIcon">
    <iconset>
@@ -178,19 +178,6 @@
 		</spacer>
 	   </item>
 	   <item>
-		<widget class="QCheckBox" name="CompressCheckBox">
-		 <property name="toolTip">
-		  <string>Compress output file with pngnq</string>
-		 </property>
-		 <property name="text">
-		  <string>Compress</string>
-		 </property>
-		 <property name="checked">
-		  <bool>true</bool>
-		 </property>
-		</widget>
-	   </item>
-	   <item>
 		<widget class="QCheckBox" name="OutlineCheckBox">
 		 <property name="toolTip">
 		  <string>Add an outline to the picture</string>
@@ -228,28 +215,12 @@
    <slot>setupUi()</slot>
    <hints>
 	<hint type="sourcelabel">
-	 <x>103</x>
-	 <y>319</y>
+	 <x>211</x>
+	 <y>374</y>
 	</hint>
 	<hint type="destinationlabel">
 	 <x>256</x>
 	 <y>252</y>
-	</hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>CaptionEdit</sender>
-   <signal>textChanged(QString)</signal>
-   <receiver>MainWindow</receiver>
-   <slot>setupUi()</slot>
-   <hints>
-	<hint type="sourcelabel">
-	 <x>43</x>
-	 <y>285</y>
-	</hint>
-	<hint type="destinationlabel">
-	 <x>19</x>
-	 <y>212</y>
 	</hint>
    </hints>
   </connection>
@@ -260,7 +231,7 @@
    <slot>setupUi()</slot>
    <hints>
 	<hint type="sourcelabel">
-	 <x>360</x>
+	 <x>315</x>
 	 <y>59</y>
 	</hint>
 	<hint type="destinationlabel">
@@ -276,8 +247,8 @@
    <slot>close()</slot>
    <hints>
 	<hint type="sourcelabel">
-	 <x>349</x>
-	 <y>319</y>
+	 <x>315</x>
+	 <y>374</y>
 	</hint>
 	<hint type="destinationlabel">
 	 <x>246</x>

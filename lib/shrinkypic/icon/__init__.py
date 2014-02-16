@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-#    Copyright 2014, Dennis Drescher
+#    Copyright 2014, SIL International
 #    All rights reserved.
 #
 #    This library is free software; you can redistribute it and/or modify

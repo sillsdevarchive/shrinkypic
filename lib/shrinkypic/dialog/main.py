@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'lib/shrinkypic/dialog/main.ui'
 #
-# Created: Sat Dec 21 19:37:49 2013
+# Created: Sun Feb 16 20:04:25 2014
 #      by: pyside-uic 0.2.13 running on PySide 1.1.0
 #
 # WARNING! All changes made in this file will be lost!
@@ -12,7 +12,7 @@ from PySide import QtCore, QtGui
 class Ui_MainWindow(object):
 	def setupUi(self, MainWindow):
 		MainWindow.setObjectName("MainWindow")
-		MainWindow.resize(322, 385)
+		MainWindow.resize(321, 382)
 		icon = QtGui.QIcon()
 		icon.addPixmap(QtGui.QPixmap("../icon/shrinkypic_32.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
 		MainWindow.setWindowIcon(icon)
@@ -70,10 +70,6 @@ class Ui_MainWindow(object):
 		self.verticalLayout.setObjectName("verticalLayout")
 		spacerItem1 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
 		self.verticalLayout.addItem(spacerItem1)
-		self.CompressCheckBox = QtGui.QCheckBox(MainWindow)
-		self.CompressCheckBox.setChecked(True)
-		self.CompressCheckBox.setObjectName("CompressCheckBox")
-		self.verticalLayout.addWidget(self.CompressCheckBox)
 		self.OutlineCheckBox = QtGui.QCheckBox(MainWindow)
 		self.OutlineCheckBox.setObjectName("OutlineCheckBox")
 		self.verticalLayout.addWidget(self.OutlineCheckBox)
@@ -86,14 +82,13 @@ class Ui_MainWindow(object):
 
 		self.retranslateUi(MainWindow)
 		QtCore.QObject.connect(self.OkButton, QtCore.SIGNAL("pressed()"), MainWindow.setupUi)
-		QtCore.QObject.connect(self.CaptionEdit, QtCore.SIGNAL("textChanged(QString)"), MainWindow.setupUi)
 		QtCore.QObject.connect(self.GetPictureButton, QtCore.SIGNAL("clicked()"), MainWindow.setupUi)
 		QtCore.QObject.connect(self.CancelButton, QtCore.SIGNAL("clicked()"), MainWindow.close)
 		QtCore.QObject.connect(self.RotationDial, QtCore.SIGNAL("sliderMoved(int)"), self.RotationBox.setValue)
 		QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
 	def retranslateUi(self, MainWindow):
-		MainWindow.setWindowTitle(QtGui.QApplication.translate("MainWindow", "ShrinkyPic - v0.1.r25", None, QtGui.QApplication.UnicodeUTF8))
+		MainWindow.setWindowTitle(QtGui.QApplication.translate("MainWindow", "ShrinkyPic - v0.1.r26", None, QtGui.QApplication.UnicodeUTF8))
 		self.PictureRotationLabel.setText(QtGui.QApplication.translate("MainWindow", "Picture Rotation", None, QtGui.QApplication.UnicodeUTF8))
 		self.FileNameLabel.setText(QtGui.QApplication.translate("MainWindow", "File Name", None, QtGui.QApplication.UnicodeUTF8))
 		self.CaptionEdit.setToolTip(QtGui.QApplication.translate("MainWindow", "Enter a caption for this picture", None, QtGui.QApplication.UnicodeUTF8))
@@ -114,8 +109,6 @@ class Ui_MainWindow(object):
 		self.GetPictureButton.setWhatsThis(QtGui.QApplication.translate("MainWindow", "Opens the file browser", None, QtGui.QApplication.UnicodeUTF8))
 		self.GetPictureButton.setText(QtGui.QApplication.translate("MainWindow", "Get Picture", None, QtGui.QApplication.UnicodeUTF8))
 		self.RotationBox.setToolTip(QtGui.QApplication.translate("MainWindow", "Change picture orientation (-20 to 20 degrees)", None, QtGui.QApplication.UnicodeUTF8))
-		self.CompressCheckBox.setToolTip(QtGui.QApplication.translate("MainWindow", "Compress output file with pngnq", None, QtGui.QApplication.UnicodeUTF8))
-		self.CompressCheckBox.setText(QtGui.QApplication.translate("MainWindow", "Compress", None, QtGui.QApplication.UnicodeUTF8))
 		self.OutlineCheckBox.setToolTip(QtGui.QApplication.translate("MainWindow", "Add an outline to the picture", None, QtGui.QApplication.UnicodeUTF8))
 		self.OutlineCheckBox.setText(QtGui.QApplication.translate("MainWindow", "Outline", None, QtGui.QApplication.UnicodeUTF8))
 		self.ViewCheckBox.setToolTip(QtGui.QApplication.translate("MainWindow", "Check to view after processing", None, QtGui.QApplication.UnicodeUTF8))
